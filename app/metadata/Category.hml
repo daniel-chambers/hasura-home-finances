@@ -1,0 +1,191 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Category
+  fields:
+    - name: Name
+      type: text!
+      description: The name of the category
+    - name: Deprecated
+      type: bit!
+      description: Whether or not the category is deprecated and no longer used for new transactions
+    - name: ParentCategory
+      type: text
+      description: The parent category of this category, if any
+  description: |
+    A category represents a grouping of transactions. Categories are hierarchical,
+    with some categories having a parent category. In these cases, transactions can belong
+    to both a parent and a child category and therefore can be grouped at a parent level
+    as well as more granularly via the child level.
+  graphql:
+    typeName: Category
+    inputTypeName: Category_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: financesdb
+      dataConnectorObjectType: Category
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Category
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - Deprecated
+          - Name
+          - ParentCategory
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: Category_bool_exp
+  operand:
+    object:
+      type: Category
+      comparableFields:
+        - fieldName: Deprecated
+          booleanExpressionType: bit_bool_exp
+        - fieldName: Name
+          booleanExpressionType: text_bool_exp
+        - fieldName: ParentCategory
+          booleanExpressionType: text_bool_exp
+      comparableRelationships:
+        - relationshipName: Category
+        - relationshipName: Categories
+        - relationshipName: TransactionCategories
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: Category_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: Category_agg_exp
+  operand:
+    object:
+      aggregatedType: Category
+      aggregatableFields:
+        - fieldName: Deprecated
+          aggregateExpression: bit_agg_exp
+        - fieldName: Name
+          aggregateExpression: text_agg_exp
+        - fieldName: ParentCategory
+          aggregateExpression: text_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: Category_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: Category
+  objectType: Category
+  source:
+    dataConnectorName: financesdb
+    collection: Category
+  filterExpressionType: Category_bool_exp
+  aggregateExpression: Category_agg_exp
+  orderableFields:
+    - fieldName: Deprecated
+      orderByDirections:
+        enableAll: true
+    - fieldName: Name
+      orderByDirections:
+        enableAll: true
+    - fieldName: ParentCategory
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: Category
+    selectUniques:
+      - queryRootField: Category_by_Name
+        uniqueIdentifier:
+          - Name
+    orderByExpressionType: Category_order_by
+    filterInputTypeName: Category_filter_input
+    aggregate:
+      queryRootField: Category_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Category
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: Category
+  sourceType: Category
+  target:
+    model:
+      name: Category
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: ParentCategory
+      target:
+        modelField:
+          - fieldName: Name
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: Categories
+  sourceType: Category
+  target:
+    model:
+      name: Category
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: Category_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: Name
+      target:
+        modelField:
+          - fieldName: ParentCategory
+  graphql:
+    aggregateFieldName: Categories_aggregate
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: TransactionCategories
+  sourceType: Category
+  target:
+    model:
+      name: TransactionCategory
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: TransactionCategory_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: Name
+      target:
+        modelField:
+          - fieldName: CategoryName
+  description: Categories group transactions together
+  graphql:
+    aggregateFieldName: TransactionCategories_aggregate

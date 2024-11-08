@@ -1,0 +1,147 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: TransactionCategory
+  fields:
+    - name: CategoryName
+      type: text!
+    - name: TransactionId
+      type: int4!
+  graphql:
+    typeName: TransactionCategory
+    inputTypeName: TransactionCategory_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: financesdb
+      dataConnectorObjectType: TransactionCategory
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: TransactionCategory
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - CategoryName
+          - TransactionId
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: TransactionCategory_bool_exp
+  operand:
+    object:
+      type: TransactionCategory
+      comparableFields:
+        - fieldName: CategoryName
+          booleanExpressionType: text_bool_exp
+        - fieldName: TransactionId
+          booleanExpressionType: int4_bool_exp
+      comparableRelationships:
+        - relationshipName: Category
+        - relationshipName: Transaction
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: TransactionCategory_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: TransactionCategory_agg_exp
+  operand:
+    object:
+      aggregatedType: TransactionCategory
+      aggregatableFields:
+        - fieldName: CategoryName
+          aggregateExpression: text_agg_exp
+        - fieldName: TransactionId
+          aggregateExpression: int4_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: TransactionCategory_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: TransactionCategory
+  objectType: TransactionCategory
+  source:
+    dataConnectorName: financesdb
+    collection: TransactionCategory
+  filterExpressionType: TransactionCategory_bool_exp
+  aggregateExpression: TransactionCategory_agg_exp
+  orderableFields:
+    - fieldName: CategoryName
+      orderByDirections:
+        enableAll: true
+    - fieldName: TransactionId
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: TransactionCategory
+    selectUniques:
+      - queryRootField: TransactionCategory_by_TransactionCategory_pkey
+        uniqueIdentifier:
+          - CategoryName
+          - TransactionId
+    orderByExpressionType: TransactionCategory_order_by
+    filterInputTypeName: TransactionCategory_filter_input
+    aggregate:
+      queryRootField: TransactionCategory_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: TransactionCategory
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: Category
+  sourceType: TransactionCategory
+  target:
+    model:
+      name: Category
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: CategoryName
+      target:
+        modelField:
+          - fieldName: Name
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: Transaction
+  sourceType: TransactionCategory
+  target:
+    model:
+      name: Transaction
+      relationshipType: Object
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: TransactionId
+      target:
+        modelField:
+          - fieldName: Id
+

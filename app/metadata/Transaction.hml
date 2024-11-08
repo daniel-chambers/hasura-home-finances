@@ -1,0 +1,167 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Transaction
+  fields:
+    - name: Id
+      type: int4!
+      description: The unique ID of the transaction
+    - name: TransactionDate
+      type: date!
+      description: The date the transaction occurred on
+    - name: Amount
+      type: numeric!
+      description: The amount involved in the transaction. Positive amounts represent money coming in (ie. earned) and negative amounts mean money going out (ie. spent).
+    - name: Description
+      type: text!
+      description: The textual description of the transaction
+    - name: ReceiptNum
+      type: text
+      description: A receipt number for the transaction, if any
+  description: A transaction represents a single cash-based transaction.
+  graphql:
+    typeName: Transaction
+    inputTypeName: Transaction_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: financesdb
+      dataConnectorObjectType: Transaction
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Transaction
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - Amount
+          - Description
+          - Id
+          - ReceiptNum
+          - TransactionDate
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: Transaction_bool_exp
+  operand:
+    object:
+      type: Transaction
+      comparableFields:
+        - fieldName: Amount
+          booleanExpressionType: numeric_bool_exp
+        - fieldName: Description
+          booleanExpressionType: text_bool_exp
+        - fieldName: Id
+          booleanExpressionType: int4_bool_exp
+        - fieldName: ReceiptNum
+          booleanExpressionType: text_bool_exp
+        - fieldName: TransactionDate
+          booleanExpressionType: date_bool_exp
+      comparableRelationships:
+        - relationshipName: TransactionCategories
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: Transaction_bool_exp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: Transaction_agg_exp
+  operand:
+    object:
+      aggregatedType: Transaction
+      aggregatableFields:
+        - fieldName: Amount
+          aggregateExpression: numeric_agg_exp
+        - fieldName: Description
+          aggregateExpression: text_agg_exp
+        - fieldName: Id
+          aggregateExpression: int4_agg_exp
+        - fieldName: ReceiptNum
+          aggregateExpression: text_agg_exp
+        - fieldName: TransactionDate
+          aggregateExpression: date_agg_exp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: Transaction_agg_exp
+
+---
+kind: Model
+version: v1
+definition:
+  name: Transaction
+  objectType: Transaction
+  source:
+    dataConnectorName: financesdb
+    collection: Transaction
+  filterExpressionType: Transaction_bool_exp
+  aggregateExpression: Transaction_agg_exp
+  orderableFields:
+    - fieldName: Amount
+      orderByDirections:
+        enableAll: true
+    - fieldName: Description
+      orderByDirections:
+        enableAll: true
+    - fieldName: Id
+      orderByDirections:
+        enableAll: true
+    - fieldName: ReceiptNum
+      orderByDirections:
+        enableAll: true
+    - fieldName: TransactionDate
+      orderByDirections:
+        enableAll: true
+  graphql:
+    selectMany:
+      queryRootField: Transaction
+    selectUniques:
+      - queryRootField: Transaction_by_Id
+        uniqueIdentifier:
+          - Id
+    orderByExpressionType: Transaction_order_by
+    filterInputTypeName: Transaction_filter_input
+    aggregate:
+      queryRootField: Transaction_aggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Transaction
+  permissions:
+    - role: admin
+      select:
+        filter: null
+
+---
+kind: Relationship
+version: v1
+definition:
+  name: TransactionCategories
+  sourceType: Transaction
+  target:
+    model:
+      name: TransactionCategory
+      relationshipType: Array
+      aggregate:
+        aggregateExpression: TransactionCategory_agg_exp
+  mapping:
+    - source:
+        fieldPath:
+          - fieldName: Id
+      target:
+        modelField:
+          - fieldName: TransactionId
+  description: Transactions may belong to multiple categories
+  graphql:
+    aggregateFieldName: TransactionCategories_aggregate

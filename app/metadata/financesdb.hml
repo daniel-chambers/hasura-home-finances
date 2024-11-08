@@ -1,0 +1,1186 @@
+kind: DataConnectorLink
+version: v1
+definition:
+  name: financesdb
+  url:
+    readWriteUrls:
+      read:
+        valueFromEnv: APP_FINANCESDB_READ_URL
+      write:
+        valueFromEnv: APP_FINANCESDB_WRITE_URL
+  headers:
+    Authorization:
+      valueFromEnv: APP_FINANCESDB_AUTHORIZATION_HEADER
+  schema:
+    version: v0.1
+    schema:
+      scalar_types:
+        bit:
+          representation:
+            type: string
+          aggregate_functions:
+            bit_and:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: bit
+            bit_or:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: bit
+            bit_xor:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: bit
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: bit
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: bit
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: bit
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: bit
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: bit
+        date:
+          representation:
+            type: date
+          aggregate_functions:
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: date
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: date
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: date
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: date
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: date
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: date
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: date
+        int4:
+          representation:
+            type: int32
+          aggregate_functions:
+            avg:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            bit_and:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            bit_or:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            bit_xor:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            stddev:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sum:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            var_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            variance:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+        int8:
+          representation:
+            type: int64
+          aggregate_functions:
+            avg:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            bit_and:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            bit_or:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            bit_xor:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            stddev:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sum:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            variance:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+        numeric:
+          representation:
+            type: bigdecimal
+          aggregate_functions:
+            avg:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sum:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            variance:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+        text:
+          representation:
+            type: string
+          aggregate_functions:
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _ilike:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _in:
+              type: in
+            _iregex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _like:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _nilike:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _niregex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _nlike:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _nregex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _regex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            starts_with:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            ts_match_tt:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+      object_types:
+        Category:
+          fields:
+            Deprecated:
+              type:
+                type: named
+                name: bit
+            Name:
+              type:
+                type: named
+                name: text
+            ParentCategory:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+        Transaction:
+          fields:
+            Amount:
+              type:
+                type: named
+                name: numeric
+            Description:
+              type:
+                type: named
+                name: text
+            Id:
+              type:
+                type: named
+                name: int4
+            ReceiptNum:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            TransactionDate:
+              type:
+                type: named
+                name: date
+        TransactionCategory:
+          fields:
+            CategoryName:
+              type:
+                type: named
+                name: text
+            TransactionId:
+              type:
+                type: named
+                name: int4
+        delete_Category_by_Name_response:
+          description: Responses from the 'delete_Category_by_Name' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: Category
+        delete_Transaction_by_Id_response:
+          description: Responses from the 'delete_Transaction_by_Id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: Transaction
+        delete_TransactionCategory_by_CategoryName_and_TransactionId_response:
+          description: Responses from the 'delete_TransactionCategory_by_CategoryName_and_TransactionId' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: TransactionCategory
+        insert_Category_object:
+          fields:
+            Deprecated:
+              type:
+                type: named
+                name: bit
+            Name:
+              type:
+                type: named
+                name: text
+            ParentCategory:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+        insert_Category_response:
+          description: Responses from the 'insert_Category' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: Category
+        insert_Transaction_object:
+          fields:
+            Amount:
+              type:
+                type: named
+                name: numeric
+            Description:
+              type:
+                type: named
+                name: text
+            Id:
+              type:
+                type: named
+                name: int4
+            ReceiptNum:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            TransactionDate:
+              type:
+                type: named
+                name: date
+        insert_Transaction_response:
+          description: Responses from the 'insert_Transaction' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: Transaction
+        insert_TransactionCategory_object:
+          fields:
+            CategoryName:
+              type:
+                type: named
+                name: text
+            TransactionId:
+              type:
+                type: named
+                name: int4
+        insert_TransactionCategory_response:
+          description: Responses from the 'insert_TransactionCategory' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: TransactionCategory
+        update_Category_by_Name_response:
+          description: Responses from the 'update_Category_by_Name' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: Category
+        update_Category_by_Name_update_columns:
+          description: Update the columns of the 'Category' collection
+          fields:
+            Deprecated:
+              description: Update the 'Deprecated' column in the 'Category' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_Category_Deprecated
+            Name:
+              description: Update the 'Name' column in the 'Category' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_Category_Name
+            ParentCategory:
+              description: Update the 'ParentCategory' column in the 'Category' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_Category_ParentCategory
+        update_Transaction_by_Id_response:
+          description: Responses from the 'update_Transaction_by_Id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: Transaction
+        update_Transaction_by_Id_update_columns:
+          description: Update the columns of the 'Transaction' collection
+          fields:
+            Amount:
+              description: Update the 'Amount' column in the 'Transaction' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_Transaction_Amount
+            Description:
+              description: Update the 'Description' column in the 'Transaction' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_Transaction_Description
+            Id:
+              description: Update the 'Id' column in the 'Transaction' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_Transaction_Id
+            ReceiptNum:
+              description: Update the 'ReceiptNum' column in the 'Transaction' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_Transaction_ReceiptNum
+            TransactionDate:
+              description: Update the 'TransactionDate' column in the 'Transaction' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_Transaction_TransactionDate
+        update_TransactionCategory_by_CategoryName_and_TransactionId_response:
+          description: Responses from the 'update_TransactionCategory_by_CategoryName_and_TransactionId' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: TransactionCategory
+        update_TransactionCategory_by_CategoryName_and_TransactionId_update_columns:
+          description: Update the columns of the 'TransactionCategory' collection
+          fields:
+            CategoryName:
+              description: Update the 'CategoryName' column in the 'TransactionCategory' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_TransactionCategory_CategoryName
+            TransactionId:
+              description: Update the 'TransactionId' column in the 'TransactionCategory' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_TransactionCategory_TransactionId
+        update_column_Category_Deprecated:
+          description: Update the 'Deprecated' column in the 'Category' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: bit
+        update_column_Category_Name:
+          description: Update the 'Name' column in the 'Category' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: text
+        update_column_Category_ParentCategory:
+          description: Update the 'ParentCategory' column in the 'Category' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+        update_column_Transaction_Amount:
+          description: Update the 'Amount' column in the 'Transaction' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: numeric
+        update_column_Transaction_Description:
+          description: Update the 'Description' column in the 'Transaction' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: text
+        update_column_Transaction_Id:
+          description: Update the 'Id' column in the 'Transaction' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_Transaction_ReceiptNum:
+          description: Update the 'ReceiptNum' column in the 'Transaction' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+        update_column_Transaction_TransactionDate:
+          description: Update the 'TransactionDate' column in the 'Transaction' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: date
+        update_column_TransactionCategory_CategoryName:
+          description: Update the 'CategoryName' column in the 'TransactionCategory' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: text
+        update_column_TransactionCategory_TransactionId:
+          description: Update the 'TransactionId' column in the 'TransactionCategory' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+      collections:
+        - name: Category
+          arguments: {}
+          type: Category
+          uniqueness_constraints:
+            Category_pkey:
+              unique_columns:
+                - Name
+          foreign_keys:
+            FK_Category_ParentCategory:
+              column_mapping:
+                ParentCategory: Name
+              foreign_collection: Category
+        - name: Transaction
+          arguments: {}
+          type: Transaction
+          uniqueness_constraints:
+            Transaction_pkey:
+              unique_columns:
+                - Id
+          foreign_keys: {}
+        - name: TransactionCategory
+          arguments: {}
+          type: TransactionCategory
+          uniqueness_constraints:
+            TransactionCategory_pkey:
+              unique_columns:
+                - CategoryName
+                - TransactionId
+          foreign_keys:
+            FK_TransactionCategory_CategoryName:
+              column_mapping:
+                CategoryName: Name
+              foreign_collection: Category
+            FK_TransactionCategory_TransactionId:
+              column_mapping:
+                TransactionId: Id
+              foreign_collection: Transaction
+      functions: []
+      procedures:
+        - name: delete_Category_by_Name
+          description: Delete any row on the 'Category' collection using the 'Name' key
+          arguments:
+            key_Name:
+              type:
+                type: named
+                name: text
+            pre_check:
+              description: Delete permission predicate over the 'Category' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: Category
+          result_type:
+            type: named
+            name: delete_Category_by_Name_response
+        - name: delete_TransactionCategory_by_CategoryName_and_TransactionId
+          description: Delete any row on the 'TransactionCategory' collection using the 'CategoryName' and 'TransactionId' keys
+          arguments:
+            key_CategoryName:
+              type:
+                type: named
+                name: text
+            key_TransactionId:
+              type:
+                type: named
+                name: int4
+            pre_check:
+              description: Delete permission predicate over the 'TransactionCategory' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: TransactionCategory
+          result_type:
+            type: named
+            name: delete_TransactionCategory_by_CategoryName_and_TransactionId_response
+        - name: delete_Transaction_by_Id
+          description: Delete any row on the 'Transaction' collection using the 'Id' key
+          arguments:
+            key_Id:
+              type:
+                type: named
+                name: int4
+            pre_check:
+              description: Delete permission predicate over the 'Transaction' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: Transaction
+          result_type:
+            type: named
+            name: delete_Transaction_by_Id_response
+        - name: insert_Category
+          description: Insert into the Category table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_Category_object
+            post_check:
+              description: Insert permission predicate over the 'Category' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: Category
+          result_type:
+            type: named
+            name: insert_Category_response
+        - name: insert_Transaction
+          description: Insert into the Transaction table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_Transaction_object
+            post_check:
+              description: Insert permission predicate over the 'Transaction' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: Transaction
+          result_type:
+            type: named
+            name: insert_Transaction_response
+        - name: insert_TransactionCategory
+          description: Insert into the TransactionCategory table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_TransactionCategory_object
+            post_check:
+              description: Insert permission predicate over the 'TransactionCategory' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: TransactionCategory
+          result_type:
+            type: named
+            name: insert_TransactionCategory_response
+        - name: update_Category_by_Name
+          description: Update any row on the 'Category' collection using the 'Name' key
+          arguments:
+            key_Name:
+              type:
+                type: named
+                name: text
+            post_check:
+              description: Update permission post-condition predicate over the 'Category' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: Category
+            pre_check:
+              description: Update permission pre-condition predicate over the 'Category' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: Category
+            update_columns:
+              type:
+                type: named
+                name: update_Category_by_Name_update_columns
+          result_type:
+            type: named
+            name: update_Category_by_Name_response
+        - name: update_TransactionCategory_by_CategoryName_and_TransactionId
+          description: Update any row on the 'TransactionCategory' collection using the 'CategoryName' and 'TransactionId' keys
+          arguments:
+            key_CategoryName:
+              type:
+                type: named
+                name: text
+            key_TransactionId:
+              type:
+                type: named
+                name: int4
+            post_check:
+              description: Update permission post-condition predicate over the 'TransactionCategory' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: TransactionCategory
+            pre_check:
+              description: Update permission pre-condition predicate over the 'TransactionCategory' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: TransactionCategory
+            update_columns:
+              type:
+                type: named
+                name: update_TransactionCategory_by_CategoryName_and_TransactionId_update_columns
+          result_type:
+            type: named
+            name: update_TransactionCategory_by_CategoryName_and_TransactionId_response
+        - name: update_Transaction_by_Id
+          description: Update any row on the 'Transaction' collection using the 'Id' key
+          arguments:
+            key_Id:
+              type:
+                type: named
+                name: int4
+            post_check:
+              description: Update permission post-condition predicate over the 'Transaction' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: Transaction
+            pre_check:
+              description: Update permission pre-condition predicate over the 'Transaction' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: Transaction
+            update_columns:
+              type:
+                type: named
+                name: update_Transaction_by_Id_update_columns
+          result_type:
+            type: named
+            name: update_Transaction_by_Id_response
+    capabilities:
+      version: 0.1.6
+      capabilities:
+        query:
+          aggregates: {}
+          variables: {}
+          explain: {}
+          nested_fields:
+            filter_by: {}
+            order_by: {}
+          exists:
+            nested_collections: {}
+        mutation:
+          transactional: {}
+          explain: {}
+        relationships:
+          relation_comparisons: {}
+          order_by_aggregate: {}
