@@ -15,7 +15,7 @@ definition:
       description: The amount involved in the transaction. Positive amounts represent money coming in (ie. earned) and negative amounts mean money going out (ie. spent).
     - name: Description
       type: text!
-      description: The textual description of the transaction
+      description: The textual description of the transaction. Searches against this field should be done case insensitively.
     - name: ReceiptNum
       type: text
       description: A receipt number for the transaction, if any
