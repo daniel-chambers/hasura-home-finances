@@ -6,7 +6,7 @@ definition:
     default:
       project: hasura-home-finances
       supergraph: ../supergraph.yaml
-      subgraph: ../app/subgraph.yaml
+      subgraph: ../documents/subgraph.yaml
       localEnvFile: ../.env
       cloudEnvFile: ../.env.cloud
   scripts:

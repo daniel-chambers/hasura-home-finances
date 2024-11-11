@@ -1,6 +1,6 @@
 include:
-  - path: app/connector/financesdb/compose.yaml
-  # - path: app/connector/python_fns/compose.yaml
+  - path: transactions/connector/financesdb/compose.yaml
+  # - path: documents/connector/python_fns/compose.yaml
 services:
   engine:
     build:

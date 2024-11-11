@@ -1,19 +1,13 @@
 kind: Subgraph
 version: v2
 definition:
-  name: app
+  name: documents
   generator:
     rootPath: .
     namingConvention: none
   includePaths:
     - metadata
   envMapping:
-    APP_FINANCESDB_AUTHORIZATION_HEADER:
-      fromEnv: APP_FINANCESDB_AUTHORIZATION_HEADER
-    APP_FINANCESDB_READ_URL:
-      fromEnv: APP_FINANCESDB_READ_URL
-    APP_FINANCESDB_WRITE_URL:
-      fromEnv: APP_FINANCESDB_WRITE_URL
     APP_PYTHON_FNS_AUTHORIZATION_HEADER:
       fromEnv: APP_PYTHON_FNS_AUTHORIZATION_HEADER
     APP_PYTHON_FNS_READ_URL:
@@ -21,7 +15,5 @@ definition:
     APP_PYTHON_FNS_WRITE_URL:
       fromEnv: APP_PYTHON_FNS_WRITE_URL
   connectors:
-    - path: connector/financesdb/connector.yaml
-      connectorLinkName: financesdb
     - path: connector/python_fns/connector.yaml
       connectorLinkName: python_fns
