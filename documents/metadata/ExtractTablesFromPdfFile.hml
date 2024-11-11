@@ -36,10 +36,13 @@ definition:
     - name: markdown
       type: String!
       description: Markdown representation of a table in the PDF file
+    - name: json
+      type: String!
+      description: JSON representation of a table in the PDF file
   graphql:
     typeName: get_tables_from_pdf_result_array
     inputTypeName: get_tables_from_pdf_result_array_input
-  description: Contains a table extracted from a PDF document
+  description: Contains a table extracted from a PDF document, represented in different data formats
   dataConnectorTypeMapping:
     - dataConnectorName: python_fns
       dataConnectorObjectType: get_tables_from_pdf_result_array
@@ -54,3 +57,4 @@ definition:
       output:
         allowedFields:
           - markdown
+          - json

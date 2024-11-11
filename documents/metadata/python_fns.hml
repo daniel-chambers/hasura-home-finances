@@ -66,6 +66,10 @@ definition:
                 name: String
         get_tables_from_pdf_result_array:
           fields:
+            json:
+              type:
+                type: named
+                name: String
             markdown:
               type:
                 type: named

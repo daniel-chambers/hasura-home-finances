@@ -28,6 +28,7 @@ msgraph_client = GraphServiceClient(device_code_credential, scopes)
 
 class PdfTable(BaseModel):
     markdown: str
+    json: str
 
 @connector.register_query
 async def get_tables_from_pdf(file_id: str) -> list[PdfTable]:
@@ -49,7 +50,7 @@ async def get_tables_from_pdf(file_id: str) -> list[PdfTable]:
 
     table_text: list[PdfTable] = []
     for table in tables:
-        table_text.append(PdfTable(markdown=table.df().to_markdown()))
+        table_text.append(PdfTable(markdown=table.df().to_markdown(), json=table.df().to_json(orient="records")))
 
     doc.close()
     os.remove(downloaded_file_path)
