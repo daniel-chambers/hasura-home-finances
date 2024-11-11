@@ -1,0 +1,56 @@
+---
+kind: Command
+version: v1
+definition:
+  name: ExtractTablesFromPdfFile
+  outputType: "[PdfTable!]!"
+  arguments:
+    - name: file_id
+      type: String!
+      description: The OneDrive file ID of the PDF to read
+  source:
+    dataConnectorName: python_fns
+    dataConnectorCommand:
+      function: get_tables_from_pdf
+  description: Given a OneDrive file ID, assumed to be a PDF file, extract all
+    tables in the PDF
+  graphql:
+    rootFieldName: ExtractTablesFromPdfFile
+    rootFieldKind: Query
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: ExtractTablesFromPdfFile
+  permissions:
+    - role: admin
+      allowExecution: true
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: PdfTable
+  fields:
+    - name: markdown
+      type: String!
+      description: Markdown representation of a table in the PDF file
+  graphql:
+    typeName: get_tables_from_pdf_result_array
+    inputTypeName: get_tables_from_pdf_result_array_input
+  description: Contains a table extracted from a PDF document
+  dataConnectorTypeMapping:
+    - dataConnectorName: python_fns
+      dataConnectorObjectType: get_tables_from_pdf_result_array
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: PdfTable
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - markdown

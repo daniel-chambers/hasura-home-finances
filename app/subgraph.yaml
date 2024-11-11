@@ -14,6 +14,20 @@ definition:
       fromEnv: APP_FINANCESDB_READ_URL
     APP_FINANCESDB_WRITE_URL:
       fromEnv: APP_FINANCESDB_WRITE_URL
+    APP_PYTHON_FNS_AUTHORIZATION_HEADER:
+      fromEnv: APP_PYTHON_FNS_AUTHORIZATION_HEADER
+    APP_PYTHON_FNS_READ_URL:
+      fromEnv: APP_PYTHON_FNS_READ_URL
+    APP_PYTHON_FNS_WRITE_URL:
+      fromEnv: APP_PYTHON_FNS_WRITE_URL
+    # APP_PYTHON_FNS_MS_ENTRA_TENANT_ID:
+    #   fromEnv: APP_PYTHON_FNS_MS_ENTRA_TENANT_ID
+    # APP_PYTHON_FNS_MS_ENTRA_CLIENT_ID:
+    #   fromEnv: APP_PYTHON_FNS_MS_ENTRA_CLIENT_ID
+    # APP_PYTHON_FNS_MS_ENTRA_SECRET_KEY:
+    #   fromEnv: APP_PYTHON_FNS_MS_ENTRA_SECRET_KEY
   connectors:
     - path: connector/financesdb/connector.yaml
       connectorLinkName: financesdb
+    - path: connector/python_fns/connector.yaml
+      connectorLinkName: python_fns

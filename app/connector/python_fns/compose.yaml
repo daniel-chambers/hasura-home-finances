@@ -1,0 +1,16 @@
+services:
+  app_python_fns:
+    build:
+      context: .
+      dockerfile: .hasura-connector/Dockerfile
+    environment:
+      HASURA_SERVICE_TOKEN_SECRET: $APP_PYTHON_FNS_HASURA_SERVICE_TOKEN_SECRET
+      OTEL_EXPORTER_OTLP_ENDPOINT: $APP_PYTHON_FNS_OTEL_EXPORTER_OTLP_ENDPOINT
+      OTEL_SERVICE_NAME: $APP_PYTHON_FNS_OTEL_SERVICE_NAME
+      MS_ENTRA_TENANT_ID: $APP_PYTHON_FNS_MS_ENTRA_TENANT_ID
+      MS_ENTRA_CLIENT_ID: $APP_PYTHON_FNS_MS_ENTRA_CLIENT_ID
+      MS_ENTRA_AUTHENTICATION_RECORD: $APP_PYTHON_FNS_MS_ENTRA_AUTHENTICATION_RECORD
+    extra_hosts:
+      - local.hasura.dev:host-gateway
+    ports:
+      - 9823:8080

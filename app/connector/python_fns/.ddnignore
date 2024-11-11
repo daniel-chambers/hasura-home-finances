@@ -1,0 +1,10 @@
+.hasura-connector/
+*.hml
+__pycache__
+.env*
+compose.yaml
+.venv
+.direnv
+flake.nix
+flake.lock
+.envrc

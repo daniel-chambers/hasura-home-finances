@@ -1,0 +1,67 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: File
+  fields:
+    - name: id
+      type: String!
+      description: The ID of the file or folder
+    - name: name
+      type: String!
+      description: The name of the file or folder
+    - name: size
+      type: Int!
+      description: Size in bytes. For files it is the file size, for folders it is the size of the contents of the folder
+    - name: type
+      type: String!
+      description: Either "file" or "folder"
+  description: Represents either a file or a folder in OneDrive
+  graphql:
+    typeName: get_files_result_array
+    inputTypeName: get_files_result_array_input
+  dataConnectorTypeMapping:
+    - dataConnectorName: python_fns
+      dataConnectorObjectType: get_files_result_array
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: File
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - name
+          - size
+          - type
+
+---
+kind: Command
+version: v1
+definition:
+  name: GetFiles
+  outputType: "[File!]!"
+  arguments:
+    - name: path
+      type: String!
+      description: The folder path. Must start with a '/'
+  source:
+    dataConnectorName: python_fns
+    dataConnectorCommand:
+      function: get_files
+  description: Gets the files and folders in a particular path in OneDrive
+  graphql:
+    rootFieldName: GetFiles
+    rootFieldKind: Query
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: GetFiles
+  permissions:
+    - role: admin
+      allowExecution: true

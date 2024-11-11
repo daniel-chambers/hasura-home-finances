@@ -1,11 +1,17 @@
 include:
   - path: app/connector/financesdb/compose.yaml
+  # - path: app/connector/python_fns/compose.yaml
 services:
   engine:
     build:
       context: engine
       dockerfile: Dockerfile.engine
       pull: true
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./engine/build
+          target: /md
     environment:
       AUTHN_CONFIG_PATH: /md/auth_config.json
       ENABLE_CORS: "true"
@@ -19,11 +25,6 @@ services:
       io.hasura.ddn.service-name: engine
     ports:
       - 3280:3000
-    develop:
-      watch:
-        - action: sync+restart
-          path: ./engine/build
-          target: /md
   otel-collector:
     command:
       - --config=/etc/otel-collector-config.yaml

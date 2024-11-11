@@ -1,0 +1,106 @@
+kind: DataConnectorLink
+version: v1
+definition:
+  name: python_fns
+  url:
+    readWriteUrls:
+      read:
+        valueFromEnv: APP_PYTHON_FNS_READ_URL
+      write:
+        valueFromEnv: APP_PYTHON_FNS_WRITE_URL
+  headers:
+    Authorization:
+      valueFromEnv: APP_PYTHON_FNS_AUTHORIZATION_HEADER
+  schema:
+    version: v0.1
+    schema:
+      scalar_types:
+        Boolean:
+          representation:
+            type: boolean
+          aggregate_functions: {}
+          comparison_operators: {}
+        Float:
+          representation:
+            type: float64
+          aggregate_functions: {}
+          comparison_operators: {}
+        HeaderMap:
+          representation:
+            type: json
+          aggregate_functions: {}
+          comparison_operators: {}
+        Int:
+          representation:
+            type: integer
+          aggregate_functions: {}
+          comparison_operators: {}
+        Json:
+          representation:
+            type: json
+          aggregate_functions: {}
+          comparison_operators: {}
+        String:
+          representation:
+            type: string
+          aggregate_functions: {}
+          comparison_operators: {}
+      object_types:
+        get_files_result_array:
+          fields:
+            id:
+              type:
+                type: named
+                name: String
+            name:
+              type:
+                type: named
+                name: String
+            size:
+              type:
+                type: named
+                name: Int
+            type:
+              type:
+                type: named
+                name: String
+        get_tables_from_pdf_result_array:
+          fields:
+            markdown:
+              type:
+                type: named
+                name: String
+      collections: []
+      functions:
+        - name: get_tables_from_pdf
+          arguments:
+            file_id:
+              type:
+                type: named
+                name: String
+          result_type:
+            type: array
+            element_type:
+              type: named
+              name: get_tables_from_pdf_result_array
+        - name: get_files
+          arguments:
+            path:
+              type:
+                type: named
+                name: String
+          result_type:
+            type: array
+            element_type:
+              type: named
+              name: get_files_result_array
+      procedures: []
+    capabilities:
+      version: 0.1.6
+      capabilities:
+        query:
+          aggregates: {}
+          variables: {}
+          explain: {}
+        mutation:
+          transactional: {}
