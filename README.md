@@ -1,0 +1,2 @@
+# Hasura Home Finances
+A hackathon project testing what it would be like to analyse home financial transactions using PromptQL by exposing the transactions from a Hasura DDN supergraph and letting the AI analyse them. Additionally, a Python connector also can read files out of OneDrive and extract tables from PDF credit card statements. These tables can then be used to ask the AI to perform credit card reconcilation against the data in the database.
